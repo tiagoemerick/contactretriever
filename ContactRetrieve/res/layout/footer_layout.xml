@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ActionBarCompat"
+    android:layout_gravity="bottom"
+    android:gravity="bottom" >
+
+    <RelativeLayout
+        android:id="@+id/relLay"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <Button
+            android:id="@+id/contactimgx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/fcontact"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/textMainFooter"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/contactimgx"
+            android:gravity="right"
+            android:paddingRight="25dp"
+            android:text="@string/title_footer"
+            android:textColor="@android:color/white"
+            android:textSize="30dp" />
+    </RelativeLayout>
+
+</LinearLayout>

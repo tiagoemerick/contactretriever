@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="false" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textMailLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/textNewMail"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textMailLabel"
+            android:hint="@string/sett_hint_change_mail"
+            android:inputType="textEmailAddress" >
+        </EditText>
+
+        <Button
+            android:id="@+id/changeMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textNewMail"
+            android:layout_alignBottom="@+id/textNewMail"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            android:text="@string/label_change" />
+
+        <EditText
+            android:id="@+id/textNewMasterPassw"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textNewMail"
+            android:hint="@string/sett_hint_change_masterpassw"
+            android:inputType="text" >
+        </EditText>
+
+        <Button
+            android:id="@+id/changeMasterPassw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textNewMasterPassw"
+            android:layout_alignBottom="@+id/textNewMasterPassw"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            android:text="@string/label_change" />
+    </RelativeLayout>
+
+</ScrollView>

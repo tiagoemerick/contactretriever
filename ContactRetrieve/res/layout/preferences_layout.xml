@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="false" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/prefPasswords"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/sett_title_passw_label"
+            android:textSize="@dimen/text_size_preferences" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/prefPasswords"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/prefManage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginTop="35dp"
+            android:text="@string/sett_title_manage_label"
+            android:textSize="@dimen/text_size_preferences" />
+
+        <View
+            android:id="@+id/linetwo"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/prefManage"
+            android:background="@android:color/darker_gray" />
+    </RelativeLayout>
+
+</ScrollView>

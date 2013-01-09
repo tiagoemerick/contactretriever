@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Recuperador de contatos</string>
+    <string name="how_it_works_information">
+        Mande um SMS para vc no seguinte formato:
+        #1 nome
+        Ex: #1 tiago
+        Se tiver senha, coloque \'!\' logo apos o nome e depois a senha.
+        Ex: #1 tiago!senha
+        Se quiser recuperar todas as senhas cadastradas, coloque $ e depois a senha mestre
+        Ex: #1 $senhaMestre
+        Para o programa pesquisar os contatos, use no mínimo um nome com 3 caracteres
+    </string>
+    <string name="title_header">Recuperar</string>
+    <string name="title_footer">Contatos</string>
+    
+    <string name="content_description">Recuperador de contatos</string>
+
+    <!-- Global -->
+    <string name="label_loading_message">Espere. :)</string>
+    <string name="label_enter">Entrar</string>
+    <string name="label_ok">OK</string>
+    <string name="label_yes">Sim</string>
+    <string name="label_no">Não</string>
+    <string name="label_save">Salvar</string>
+    <string name="label_cancel">Cancelar</string>
+    <string name="label_invalid_value">Valor inválido</string>
+    <string name="label_change">Alterar</string>
+    
+    <!-- Principal -->
+    <string name="label_create_master_password">Criar Senha Mestre</string>
+    <string name="label_type_master_password">Digite a senha mestre</string>
+    <string name="label_mail_recover_master_password">Email para recuperar senha mestre</string>
+    <string name="label_recover_master_password">Recuperar Senha Mestre</string>
+    <string name="label_settings">Preferências</string>
+    <string name="label_help">Ajuda</string>
+    <string name="message_master_passw_required">É necessário cadastrar uma senha mestre para acessar as configurações</string>
+    <string name="message_wrong_passw">Senha inválida</string>
+    <string name="message_empty_passwords">Não há senhas disponíveis. O programa agora está aberto e funcionará sem elas</string>
+    <string name="subject_password_recover">Senha recuperada</string>
+    <string name="text_password_recover">Sua senha é</string>
+    
+    <!-- Mail -->
+    <string name="send_mail_status_ok">Email foi enviado com sucesso</string>
+    <string name="send_mail_status_error">Ocorreu um erro ao enviar o email. Você está conectado a internet?</string>
+    <string name="send_mail_infor_one">Um email será enviado para</string>
+    <string name="send_mail_infor_two">Por favor, tenha certeza que você está conectado a internet</string>
+    <string name="button_send">Enviar</string>
+
+    <!-- Rate -->
+    <string name="label_rate_title">Avalie</string>
+    <string name="label_rate_message_1">Se você está curtindo </string>
+    <string name="label_rate_message_2">, por favor avalie. Obrigado pelo suporte! :)</string>
+    <string name="label_rate_remind_later">Lembre-me depois</string>
+    <string name="label_rate_no_thanks">Não, obrigado</string>
+
+    <!-- phone types -->
+    <string name="type_phone_home">Casa</string>
+    <string name="type_phone_mobile">Celular</string>
+    <string name="type_phone_work">Trabalho</string>
+    <string name="type_phone_mobile_work">Celular trabalho</string>
+
+    <!-- All -->
+    <string name="sms_send">SMS enviada</string>
+    <string name="sms_not_send">Falha ao enviar SMS</string>
+    <string name="contact_not_found">Nenhum contato encontrado</string>
+
+    <!-- Notification -->
+    <string name="message_error_notification">Ocorreu um erro ao tentar enviar SMS</string>
+    <string name="message_success_notification">SMS enviado com sucesso</string>
+
+    <!-- Settings Layout -->
+    <string name="sett_title_passw_label">Senhas</string>
+    <string name="sett_title_manage_label">Gerenciar</string>
+    <string name="sett_passw_label">Senha para autenticação</string>
+    <string name="sett_list_passw">Senhas salvas</string>
+    <string name="sett_hint_passw">Senha</string>
+    <string name="sett_message_passw_delete">Deseja mesmo excluir?</string>
+    <string name="sett_button_add_passw">Inserir</string>
+	<string name="sett_button_delall_passw">Apagar todas</string>    
+    <string name="sett_toast_invalid_passw">Valor inválido</string>
+    <string name="sett_hint_change_mail">Novo email</string>
+    <string name="sett_hint_change_masterpassw">Nova senha mestre</string>
+    <string name="sett_text_change_mail">Email atual</string>
+    <string name="sett_change_mail_ok">Alterado!</string>
+
+    <!-- Settings -->
+    <string name="security_title">Segurança</string>
+    <string name="security_addPassword">Adicionar senha</string>
+    <string name="security_sumary">Adicionar uma senha a lista</string>
+    
+    <!-- Help -->
+    <string name="title_howto">Como funciona</string>
+    <string name="title_master_password">Senha mestre</string>
+    <string name="title_passwords">Senhas</string>
+    <string name="title_symbol">Símbolos</string>
+    <string name="title_costs">Custos</string>
+    <string name="title_about">Sobre</string>
+    <string name="text_howto">Esqueceu o celular e precisa de algum contato que só você tem? Sem problemas…\nEste aplicativo recupera os telefones de um contato que você precisar apenas com um SMS!\n\n
+        Funciona assim:\n
+        Use o celular de alguém e mande um SMS para o seu aparelho no seguinte formato:\n
+        <b>#1 <i>nome</i></b>\nonde no lugar do <i>nome</i> é só colocar o nome do contato que você deseja recuperar.\nExemplos:\n
+        <b>#1 tiago</b>\n
+        <b>#1 elida</b>\nCom isso o seu aparelho irá retornar automaticamente um SMS para o aparelho do qual você enviou o SMS, com os contatos e seus números.\n\nEste aplicativo não faz distinção entre letras maiúsculas ou minúsculas, o que significa que 
+        <b>#1 tiago</b> é a mesma coisa que <b>#1 TIAGO</b>\n\nÉ possivel também buscar um contato por parte do nome.\nExemplo:\n
+        <b>#1 iago</b>\nNeste caso o aplicativo retornará todos os contatos que contém iago como parte do nome (Tiago Emerick, Iago Zerber, Hiago, etc…)\n\nPara o aplicativo pesquisar os contatos, é necessário que o <i>nome</i> que você enviar tenha no mínimo 3 letras. 
+    </string>
+    <string name="text_passwords">Para sua maior segurança, este aplicativo faz uso de senhas para buscar os contatos, mas não quer dizer que seja obrigatório cadastra-las.\nSe você somente instalar o aplicativo e não fizer mais nada, o mesmo funcionará sem senha o que significa que qualquer pessoa poderá enviar SMS para o seu aparelho e requisitar quantos contatos quiser.\nSe você cadastrar senhas, o aplicativo somente retornará um SMS com os contatos se você passar a senha.\n\n
+        Como Funciona:\nCadastre as senhas que quiser no menu <i>Preferências</i>.\nQuando você usar o celular de alguém para buscar um contato, mande um SMS para o seu aparelho no seguinte formato:\n
+        <b>#1 <i>nome</i>!<i>senha</i></b>\nonde no lugar do <i>nome</i> é só colocar o nome do contato que você deseja recuperar e no lugar da <i>senha</i> é só colocar uma de suas senhas cadastradas.\nExemplo:\n
+        <b>#1 tiago!xpto</b>\nCom isso o seu aparelho irá retornar um SMS para o aparelho do qual você enviou o SMS com os contatos e seus números e irá <b>inutilizar</b> a senha usada.\nSe você quiser buscar outros contatos, deverá enviar um novo SMS para o seu aparelho utilizando outra senha. Caso todas as senhas acabem, então o aplicativo voltará a funcionar sem senhas.\n
+        Caso as senhas acabem, é só enviar um SMS para o seu aparelho no formato original:\n
+        <b>#1 <i>nome</i></b> não sendo mais necessário o uso do sinal ! para separar a senha.\n\nCaso você tenha esquecido todas as senhas, você poderá ve-las usando a sua <i>senha mestre</i>. Para isso mande um SMS para o seu aparelho no seguinte formato:\n
+        <b>#1 $<i>senhaMestre</i></b>\nonde no lugar do <i>senhaMestre</i> é só colocar a sua senha mestre previamente cadastrada.\nCom isso o seu aparelho irá retornar um SMS para o aparelho do qual enviou o SMS com todas as senhas cadastradas. Agora é só escolher uma senha buscar o contato que desejar.
+   	</string>
+    <string name="text_master_password">Para que serve a senha mestre?\n\nA senha mestre serve para acessar o menu <i>Preferências</i>. Lá você poderá cadastrar senhas de segurança. As senhas de segurança servem para o aplicativo somente funcionar caso você as passe no SMS de origem.\nPara aprender mais sobre as senhas de segurança, acesse no menu <i>Ajuda</i> a opção <i>Senhas</i>.\n\n
+       	A senha mestre também serve para, caso esqueça todas as suas senhas cadastradas, recuperar todas as suas senhas de segurança cadastradas.\nPara isso mande um SMS para o seu aparelho no seguinte formato:\n
+       	<b>#1 $<i>senhaMestre</i></b>\nonde no lugar do <i>senhaMestre</i> é só colocar a sua senha mestre previamente cadastrada.\nCom isso o seu aparelho irá retornar um SMS para o aparelho do qual enviou o SMS com todas as senhas cadastradas. Agora é só escolher uma senha buscar o contato que desejar.
+    </string>
+    <string name="text_symbols">Atalho rápido para os símbolos utilizados por este aplicativo:\n\n
+        <b>#1</b> - Identificador utilizado pelo aplicativo para saber que o SMS que está sendo recebido é para buscar contatos.\nExemplo:\n
+        <b>#1 <i>nome</i></b>\n\n
+        <b>!</b>  - Identificador utilizado para separar o nome do contato a ser buscado, da senha de segurança.\nExemplo:\n
+        <b>#1 <i>nome</i>!<i>senha</i></b>\n\n
+        <b>$</b>  - Identificador utilizado para requisitar todas as senhas cadastradas através da senha mestre.\nExemplo:\n
+        <b>#1 $<i>senhaMestre</i></b>
+    </string>
+    <string name="text_costs">Os custos adicionais deste programa se resumem ao valor de um SMS comum.\n\n
+        Quando você utiliza o celular de outra pessoa para enviar um SMS para o seu aparelho e buscar um contato, você estará gastando o valor de um SMS comum da pessoa que empretou o aparelho
+        e o valor de um ou mais (dependendo do tamanho do conteúdo da mensagem) SMS comum que será utilizado pelo seu aparelho para retornar automaticamente o contato buscado.\n\n
+        Caso você queira acessar o menu <b>Recuperar Senha Mestre</b>, você deverá estar conectado a internet. Esta opção de menu irá enviar um email para o email cadastrado com a senha em anexo.\nNeste caso fique atento aos custos de uma conexão 3G/4G ou outra qualquer.
+    </string>
+    <string name="text_about"><b>Nome: </b>Tiago Anozé Emerick\n<b>Idade: 24\n</b><b>Moro: </b>Brasil\n<b>Sobre: </b>Autodidata. Gosto de novos desafios e esportes em geral.\n\n Gostou? Críticas? Sugestões? Elogios?\n\n<b>Contato: </b>tiagoemerick@gmail.com
+    </string>
+
+</resources>
