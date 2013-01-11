@@ -52,34 +52,49 @@ public class SMSManagerService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Bundle intentExtras = intent.getExtras();
-		if (intentExtras != null) {
-			String phoneNumber = intentExtras.getString(Constants.sendsms.celnumber);
-			String message = intentExtras.getString(Constants.sendsms.textmessage);
-			Long idPasswordUsed = intentExtras.getLong(Constants.sendsms.idpasswordused);
-			String requestType = intentExtras.getString(Constants.sendsms.requesttype);
-
-			if (isContentValid(phoneNumber, message)) {
-				if (requestType != null && !requestType.equals("")) {
-					String finalMessage = message;
-
-					if (requestType.equalsIgnoreCase(Constants.sendsms.requesttype_contact)) {
-						String nameToSearch = getNameToSearh(message);
-						List<Contact> contactsInfo = getContactsInfo(nameToSearch);
-
-						String contactsMessage = getContactsMessage(contactsInfo, phoneNumber);
-						finalMessage = contactsMessage;
-
-						deletePasswordUsed(idPasswordUsed);
-					} else if (requestType.equalsIgnoreCase(Constants.sendsms.requesttype_password)) {
-						String messagePasswords = getMessagePasswords(message);
-						finalMessage = messagePasswords;
+		if (intent != null) {
+			Bundle intentExtras = intent.getExtras();
+			if (intentExtras != null) {
+				String phoneNumber = intentExtras.getString(Constants.sendsms.celnumber);
+				String message = intentExtras.getString(Constants.sendsms.textmessage);
+				Long idPasswordUsed = intentExtras.getLong(Constants.sendsms.idpasswordused);
+				String requestType = intentExtras.getString(Constants.sendsms.requesttype);
+				
+				if (isContentValid(phoneNumber, message)) {
+					if (requestType != null && !requestType.equals("")) {
+						String finalMessage = message;
+						
+						if (requestType.equalsIgnoreCase(Constants.sendsms.requesttype_contact)) {
+							String nameToSearch = getNameToSearh(message);
+							List<Contact> contactsInfo = getContactsInfo(nameToSearch);
+							
+							// TODO: remover
+//							List<Contact> contactsInfo = teste(nameToSearch);
+							
+							String contactsMessage = getContactsMessage(contactsInfo, phoneNumber);
+							finalMessage = contactsMessage;
+							
+							deletePasswordUsed(idPasswordUsed);
+						} else if (requestType.equalsIgnoreCase(Constants.sendsms.requesttype_password)) {
+							String messagePasswords = getMessagePasswords(message);
+							finalMessage = messagePasswords;
+						}
+						sendSMS(phoneNumber, finalMessage);
 					}
-					sendSMS(phoneNumber, finalMessage);
 				}
 			}
 		}
 		return super.onStartCommand(intent, PendingIntent.FLAG_ONE_SHOT, startId);
+	}
+
+	private List<Contact> teste(String nameToSearch) {
+		Contact c = new Contact();
+		c.setName(nameToSearch);
+		
+		List<Contact> cc = new ArrayList<Contact>();
+		cc.add(c);
+		
+		return cc;
 	}
 
 	private String getMessagePasswords(String message) {
