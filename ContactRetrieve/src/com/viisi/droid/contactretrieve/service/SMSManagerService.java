@@ -68,9 +68,6 @@ public class SMSManagerService extends Service {
 							String nameToSearch = getNameToSearh(message);
 							List<Contact> contactsInfo = getContactsInfo(nameToSearch);
 							
-							// TODO: remover
-//							List<Contact> contactsInfo = teste(nameToSearch);
-							
 							String contactsMessage = getContactsMessage(contactsInfo, phoneNumber);
 							finalMessage = contactsMessage;
 							
@@ -85,16 +82,6 @@ public class SMSManagerService extends Service {
 			}
 		}
 		return super.onStartCommand(intent, PendingIntent.FLAG_ONE_SHOT, startId);
-	}
-
-	private List<Contact> teste(String nameToSearch) {
-		Contact c = new Contact();
-		c.setName(nameToSearch);
-		
-		List<Contact> cc = new ArrayList<Contact>();
-		cc.add(c);
-		
-		return cc;
 	}
 
 	private String getMessagePasswords(String message) {

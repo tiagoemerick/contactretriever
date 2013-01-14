@@ -29,42 +29,44 @@ public class SMSReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Bundle bundle = intent.getExtras();
-		SmsMessage[] msgs = null;
-		StringBuilder originalMessage = new StringBuilder();
-		String originalPhone = null;
-
-		if (bundle != null) {
-			Object[] pdus = (Object[]) bundle.get("pdus");
-			msgs = new SmsMessage[pdus.length];
-			for (int i = 0; i < msgs.length; i++) {
-				msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-				if (i == 0) {
-					originalPhone = msgs[i].getOriginatingAddress();
-				}
-				originalMessage.append(msgs[i].getMessageBody().toString());
-				if (i != (msgs.length - 1)) {
-					originalMessage.append("\n");
-				}
-			}
-
-			String originalMessageString = originalMessage.toString();
-			if (isMessageContactRequest(originalMessageString)) {
-				String requestType = null;
-
-				if (isMessagePasswordsRequest(originalMessageString)) {
-					if (validateMasterPassword(context, originalMessageString)) {
-						requestType = Constants.sendsms.requesttype_password;
-						sendSMS(originalPhone, originalMessageString.trim(), requestType, context);
+		if (intent != null) {
+			Bundle bundle = intent.getExtras();
+			SmsMessage[] msgs = null;
+			StringBuilder originalMessage = new StringBuilder();
+			String originalPhone = null;
+			
+			if (bundle != null) {
+				Object[] pdus = (Object[]) bundle.get("pdus");
+				msgs = new SmsMessage[pdus.length];
+				for (int i = 0; i < msgs.length; i++) {
+					msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+					if (i == 0) {
+						originalPhone = msgs[i].getOriginatingAddress();
 					}
-				} else {
-					if (validatePasswords(context, originalMessageString)) {
-						if (finalMessage != null && !finalMessage.equals("")) {
-							originalMessageString = finalMessage;
+					originalMessage.append(msgs[i].getMessageBody().toString());
+					if (i != (msgs.length - 1)) {
+						originalMessage.append("\n");
+					}
+				}
+				
+				String originalMessageString = originalMessage.toString();
+				if (isMessageContactRequest(originalMessageString)) {
+					String requestType = null;
+					
+					if (isMessagePasswordsRequest(originalMessageString)) {
+						if (validateMasterPassword(context, originalMessageString)) {
+							requestType = Constants.sendsms.requesttype_password;
+							sendSMS(originalPhone, originalMessageString.trim(), requestType, context);
 						}
-						requestType = Constants.sendsms.requesttype_contact;
-						sendSMS(originalPhone, originalMessageString.trim(), requestType, context);
-						incrementRateLauncherCounter(context);
+					} else {
+						if (validatePasswords(context, originalMessageString)) {
+							if (finalMessage != null && !finalMessage.equals("")) {
+								originalMessageString = finalMessage;
+							}
+							requestType = Constants.sendsms.requesttype_contact;
+							sendSMS(originalPhone, originalMessageString.trim(), requestType, context);
+							incrementRateLauncherCounter(context);
+						}
 					}
 				}
 			}
