@@ -59,18 +59,18 @@ public class SMSManagerService extends Service {
 				String message = intentExtras.getString(Constants.sendsms.textmessage);
 				Long idPasswordUsed = intentExtras.getLong(Constants.sendsms.idpasswordused);
 				String requestType = intentExtras.getString(Constants.sendsms.requesttype);
-				
+
 				if (isContentValid(phoneNumber, message)) {
 					if (requestType != null && !requestType.equals("")) {
 						String finalMessage = message;
-						
+
 						if (requestType.equalsIgnoreCase(Constants.sendsms.requesttype_contact)) {
 							String nameToSearch = getNameToSearh(message);
 							List<Contact> contactsInfo = getContactsInfo(nameToSearch);
-							
+
 							String contactsMessage = getContactsMessage(contactsInfo, phoneNumber);
 							finalMessage = contactsMessage;
-							
+
 							deletePasswordUsed(idPasswordUsed);
 						} else if (requestType.equalsIgnoreCase(Constants.sendsms.requesttype_password)) {
 							String messagePasswords = getMessagePasswords(message);
@@ -221,7 +221,8 @@ public class SMSManagerService extends Service {
 
 		SmsManager smsManager = SmsManager.getDefault();
 		// doesnt work. there is a bug on android core. Its sending sms twice
-		// smsManager.sendTextMessage(phoneNumber, null, message.trim(), sentPI, deliveredPI);
+		// smsManager.sendTextMessage(phoneNumber, null, message.trim(), sentPI,
+		// deliveredPI);
 
 		SendSMSBugCorrection.send(phoneNumber, message.trim(), sentPI, deliveredPI, smsManager);
 	}
@@ -329,11 +330,13 @@ public class SMSManagerService extends Service {
 				String name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
 
 				// >= android-api-10
-				// String normalizedDB = Normalizer.normalize(name, Normalizer.Form.NFD);
+				// String normalizedDB = Normalizer.normalize(name,
+				// Normalizer.Form.NFD);
 				String normalizedDB = StringUtil.substituteAccents(name);
 				String nameNormalizedWithouAccents = normalizedDB.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").trim().toLowerCase();
 
-				// String normalizedNameToSearch = Normalizer.normalize(nameToSearch, Normalizer.Form.NFD);
+				// String normalizedNameToSearch =
+				// Normalizer.normalize(nameToSearch, Normalizer.Form.NFD);
 				String normalizedNameToSearch = StringUtil.substituteAccents(nameToSearch);
 				String nameToSearchNormalizedWithouAccents = normalizedNameToSearch.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").trim().toLowerCase();
 
