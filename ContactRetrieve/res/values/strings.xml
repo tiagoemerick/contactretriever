@@ -2,16 +2,6 @@
 <resources>
 
     <string name="app_name">Contact Retriever</string>
-    <string name="how_it_works_information">
-        Mande um SMS para vc no seguinte formato:
-        #1 nome
-        Ex: #1 tiago
-        Se tiver senha, coloque \'!\' logo apos o nome e depois a senha.
-        Ex: #1 tiago!senha
-        Se quiser recuperar todas as senhas cadastradas, coloque $ e depois a senha mestre
-        Ex: #1 $senhaMestre
-        Para o programa pesquisar os contatos, use no mínimo um nome com 3 caracteres
-    </string>
     <string name="title_header">Contact</string>
     <string name="title_footer">Retriever</string>
     

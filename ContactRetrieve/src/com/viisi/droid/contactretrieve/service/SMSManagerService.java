@@ -2,6 +2,7 @@ package com.viisi.droid.contactretrieve.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import android.app.Activity;
@@ -333,12 +334,12 @@ public class SMSManagerService extends Service {
 				// String normalizedDB = Normalizer.normalize(name,
 				// Normalizer.Form.NFD);
 				String normalizedDB = StringUtil.substituteAccents(name);
-				String nameNormalizedWithouAccents = normalizedDB.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").trim().toLowerCase();
+				String nameNormalizedWithouAccents = normalizedDB.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").trim().toLowerCase(Locale.US);
 
 				// String normalizedNameToSearch =
 				// Normalizer.normalize(nameToSearch, Normalizer.Form.NFD);
 				String normalizedNameToSearch = StringUtil.substituteAccents(nameToSearch);
-				String nameToSearchNormalizedWithouAccents = normalizedNameToSearch.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").trim().toLowerCase();
+				String nameToSearchNormalizedWithouAccents = normalizedNameToSearch.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").trim().toLowerCase(Locale.US);
 
 				if (nameNormalizedWithouAccents.contains(nameToSearchNormalizedWithouAccents)) {
 					Contact contact = new Contact();

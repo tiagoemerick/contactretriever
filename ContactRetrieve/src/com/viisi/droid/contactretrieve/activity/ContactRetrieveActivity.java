@@ -33,6 +33,53 @@ import com.viisi.droid.contactretrieve.util.Mail;
 
 public class ContactRetrieveActivity extends Activity {
 
+	/**
+	 * http://stackoverflow.com/questions/11407943/this-handler-class-should-be-
+	 * static-or-leaks-might-occur-incominghandler
+	 * 
+	 * o handlerMessage fica aguardando respostas na sua fila de mensagem. Se
+	 * ele não for statico, ele irá guardar a referência ao objeto
+	 * ContactRetrieveActivity e com isso o ContactRetrieveActivity nunca será
+	 * limpado pelo GC, mesmo que tenha sido destruído. Ficará com ele em
+	 * memória e poderá causar memory leak.
+	 * 
+	 */
+	private static final class HandlerExtension extends Handler {
+		private final ProgressDialog sendProgress;
+		private final ContactRetrieveActivity contactRetrieveActivityContext;
+
+		private HandlerExtension(ProgressDialog sendProgress, ContactRetrieveActivity contactRetrieveActivityContext) {
+			this.sendProgress = sendProgress;
+			this.contactRetrieveActivityContext = contactRetrieveActivityContext;
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			Bundle data = msg.getData();
+			Boolean statusSender = (Boolean) data.get(Constants.mail.mail_send_status);
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(contactRetrieveActivityContext);
+			builder.setCancelable(false);
+
+			if (statusSender == null || !statusSender) {
+				builder.setMessage(contactRetrieveActivityContext.getString(R.string.send_mail_status_error));
+			} else {
+				builder.setMessage(contactRetrieveActivityContext.getString(R.string.send_mail_status_ok));
+			}
+
+			builder.setPositiveButton(contactRetrieveActivityContext.getString(R.string.label_ok), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+			sendProgress.dismiss();
+
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
+	}
+
 	private static final int ID_EDIT_TEXT_MASTER_PASSW_SETTINGS = 25;
 	private static final int ID_EDIT_TEXT_MASTER_PASSW = 30;
 	private static final int ID_EDIT_TEXT_MAIL = 35;
@@ -200,10 +247,8 @@ public class ContactRetrieveActivity extends Activity {
 			startActivity(i);
 		}
 	};
-//	@SuppressLint("HandlerLeak")
 	private OnClickListener recoverMasterPasswListener = new OnClickListener() {
 		@Override
-//		@SuppressLint("HandlerLeak")
 		public void onClick(View v) {
 			final SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.preferences.preferencefilename, 0);
 			final String mailRecover = prefs.getString(Constants.preferences.preference_mail, "");
@@ -256,33 +301,7 @@ public class ContactRetrieveActivity extends Activity {
 						m.setSubject(subject);
 						m.setBody(text);
 
-						final Handler handler = new Handler() {
-							@Override
-							public void handleMessage(Message msg) {
-								Bundle data = msg.getData();
-								Boolean statusSender = (Boolean) data.get(Constants.mail.mail_send_status);
-
-								AlertDialog.Builder builder = new AlertDialog.Builder(ContactRetrieveActivity.this);
-								builder.setCancelable(false);
-
-								if (statusSender == null || !statusSender) {
-									builder.setMessage(getApplicationContext().getString(R.string.send_mail_status_error));
-								} else {
-									builder.setMessage(getApplicationContext().getString(R.string.send_mail_status_ok));
-								}
-
-								builder.setPositiveButton(getApplicationContext().getString(R.string.label_ok), new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										dialog.dismiss();
-									}
-								});
-								sendProgress.dismiss();
-
-								AlertDialog alert = builder.create();
-								alert.show();
-							}
-						};
+						final Handler handler = new HandlerExtension(sendProgress, ContactRetrieveActivity.this);
 
 						Runnable runnableSendMail = new Runnable() {
 							@Override

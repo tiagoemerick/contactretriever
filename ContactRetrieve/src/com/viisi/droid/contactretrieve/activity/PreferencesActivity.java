@@ -37,6 +37,19 @@ import com.viisi.droid.contactretrieve.util.Constants;
 
 public class PreferencesActivity extends Activity {
 
+	private static final class HandlerExtension extends Handler {
+		private final ProgressDialog dialog;
+
+		private HandlerExtension(ProgressDialog dialog) {
+			this.dialog = dialog;
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			dialog.dismiss();
+		}
+	}
+
 	// Panels
 	private TextView prefPasswords;
 	private TextView prefManage;
@@ -148,18 +161,11 @@ public class PreferencesActivity extends Activity {
 		}
 	};
 
-//	@SuppressLint("HandlerLeak")
 	private OnClickListener addPasswordListener = new OnClickListener() {
-//		@SuppressLint("HandlerLeak")
 		public void onClick(View v) {
 			final ProgressDialog dialog = createProgressDialog();
 
-			final Handler handler = new Handler() {
-				@Override
-				public void handleMessage(Message msg) {
-					dialog.dismiss();
-				}
-			};
+			final Handler handler = new HandlerExtension(dialog);
 
 			runOnUiThread(new Runnable() {
 				@Override
