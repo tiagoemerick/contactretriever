@@ -313,6 +313,7 @@ public class ContactRetrieveActivity extends Activity {
 									boolean send = m.send();
 									data.putBoolean(Constants.mail.mail_send_status, send);
 								} catch (Exception e) {
+                                    System.out.println(e);
 								} finally {
 									msg.setData(data);
 									handler.sendMessage(msg);
