@@ -1,16 +1,11 @@
 package com.viisi.droid.contactretrieve.activity;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.viisi.droid.contactretrieve.R;
 import com.viisi.droid.contactretrieve.util.Constants;
@@ -59,126 +54,36 @@ public class AppRater {
 			APP_TITLE = mContext.getString(R.string.app_name);
 		}
 
-		final Dialog dialog = new Dialog(mContext);
-		dialog.setTitle(mContext.getString(R.string.label_rate_title) + " " + APP_TITLE);
-
-		RelativeLayout rlIconLauncher = new RelativeLayout(mContext);
-
-		Button iconLauncher = new Button(mContext);
-		iconLauncher.setId(5);
-		iconLauncher.setBackgroundResource(R.drawable.ic_launcher);
-		iconLauncher.setClickable(false);
-
-		RelativeLayout.LayoutParams lpIconLauncher = new RelativeLayout.LayoutParams(56, 52);
-		lpIconLauncher.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
-		rlIconLauncher.addView(iconLauncher, lpIconLauncher);
-
-		LinearLayout ll = new LinearLayout(mContext);
-		ll.setOrientation(LinearLayout.VERTICAL);
-
-		ll.addView(rlIconLauncher);
-
-		TextView tv = new TextView(mContext);
-		tv.setText(mContext.getString(R.string.label_rate_message_1) + " " + APP_TITLE + mContext.getString(R.string.label_rate_message_2));
-		tv.setWidth(240);
-		tv.setPadding(4, 0, 4, 10);
-		ll.addView(tv);
-
-		Button bRate = new Button(mContext);
-		bRate.setText(mContext.getString(R.string.label_rate_title) + " " + APP_TITLE);
-		bRate.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PNAME)));
-				// mContext.startActivity(new Intent(Intent.ACTION_VIEW,
-				// Uri.parse("https://play.google.com/store/apps/details?id=" +
-				// APP_PNAME)));
-				dialog.dismiss();
-			}
-		});
-		ll.addView(bRate);
-
-		Button bRemind = new Button(mContext);
-		bRemind.setText(mContext.getString(R.string.label_rate_remind_later));
-		bRemind.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-		ll.addView(bRemind);
-
-		Button bNoThx = new Button(mContext);
-		bNoThx.setText(mContext.getString(R.string.label_rate_no_thanks));
-		bNoThx.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				if (editor != null) {
-					editor.putBoolean(Constants.apprater.preference_dontshowagain, true);
-					editor.commit();
+		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case DialogInterface.BUTTON_POSITIVE:
+					mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PNAME)));
+					dialog.dismiss();
+					break;
+				case DialogInterface.BUTTON_NEUTRAL:
+					dialog.dismiss();
+					break;
+				case DialogInterface.BUTTON_NEGATIVE:
+					if (editor != null) {
+						editor.putBoolean(Constants.apprater.preference_dontshowagain, true);
+						editor.commit();
+					}
+					dialog.dismiss();
+					break;
 				}
-				dialog.dismiss();
 			}
-		});
-		ll.addView(bNoThx);
+		};
 
-		// RelativeLayout rlStars = createStars(mContext);
-		// ll.addView(rlStars);
+		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+		builder.setIcon(R.drawable.ic_rate);
+		builder.setTitle(mContext.getString(R.string.label_rate_title));
+		builder.setMessage(mContext.getString(R.string.label_rate_message_1) + " " + APP_TITLE + " " + mContext.getString(R.string.label_rate_message_2));
+		builder.setPositiveButton(R.string.label_rate_rate, dialogClickListener);
+		builder.setNeutralButton(R.string.label_rate_remind_later, dialogClickListener);
+		builder.setNegativeButton(R.string.label_rate_no_thanks, dialogClickListener);
 
-		dialog.setContentView(ll);
-		dialog.show();
-	}
-
-	@SuppressWarnings("unused")
-	private static RelativeLayout createStars(final Context mContext) {
-		RelativeLayout rlStars = new RelativeLayout(mContext);
-
-		int widthStar = 50;
-		int heightStar = 46;
-
-		Button bStart1 = new Button(mContext);
-		bStart1.setId(50);
-		bStart1.setBackgroundResource(R.drawable.bluestar);
-		bStart1.setClickable(false);
-
-		RelativeLayout.LayoutParams lpStar1 = new RelativeLayout.LayoutParams(widthStar, heightStar);
-		lpStar1.leftMargin = 80;
-		rlStars.addView(bStart1, lpStar1);
-
-		Button bStar2 = new Button(mContext);
-		bStar2.setId(100);
-		bStar2.setBackgroundResource(R.drawable.bluestar);
-		bStar2.setClickable(false);
-
-		RelativeLayout.LayoutParams lpStar2 = new RelativeLayout.LayoutParams(widthStar, heightStar);
-		lpStar2.addRule(RelativeLayout.RIGHT_OF, bStart1.getId());
-		rlStars.addView(bStar2, lpStar2);
-
-		Button bStar3 = new Button(mContext);
-		bStar3.setId(150);
-		bStar3.setBackgroundResource(R.drawable.bluestar);
-		bStar3.setClickable(false);
-
-		RelativeLayout.LayoutParams lpStar3 = new RelativeLayout.LayoutParams(widthStar, heightStar);
-		lpStar3.addRule(RelativeLayout.RIGHT_OF, bStar2.getId());
-		rlStars.addView(bStar3, lpStar3);
-
-		Button bStar4 = new Button(mContext);
-		bStar4.setId(200);
-		bStar4.setBackgroundResource(R.drawable.bluestar);
-		bStar4.setClickable(false);
-
-		RelativeLayout.LayoutParams lpStar4 = new RelativeLayout.LayoutParams(widthStar, heightStar);
-		lpStar4.addRule(RelativeLayout.RIGHT_OF, bStar3.getId());
-		rlStars.addView(bStar4, lpStar4);
-
-		Button bStar5 = new Button(mContext);
-		bStar5.setId(250);
-		bStar5.setBackgroundResource(R.drawable.bluestar);
-		bStar5.setClickable(false);
-
-		RelativeLayout.LayoutParams lpStar5 = new RelativeLayout.LayoutParams(widthStar, heightStar);
-		lpStar5.addRule(RelativeLayout.RIGHT_OF, bStar4.getId());
-		rlStars.addView(bStar5, lpStar5);
-
-		return rlStars;
+		builder.show();
 	}
 }

@@ -1,64 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/ActionHomeCompact"
-    android:fillViewport="false" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_height="fill_parent"
+        android:stretchColumns="1"
+        android:weightSum="2" >
 
-        <LinearLayout
-            android:id="@+id/first"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="45dp"
-            android:orientation="horizontal" >
+        <TableRow android:layout_weight="1" >
 
             <Button
                 android:id="@+id/addMasterPassw"
-                style="@style/HomeButton"
-                android:drawableTop="@drawable/final_balloon_unlock_green_light"
-                android:text="@string/label_create_master_password"
-                android:visibility="invisible" />
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/x_add"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/recoverMasterPassw"
-                style="@style/HomeButton"
-                android:drawableTop="@drawable/final_balloon_lock_green_light"
-                android:text="@string/label_recover_master_password"
-                android:visibility="invisible" />
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/x_recover"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/settings"
-                style="@style/HomeButton"
-                android:drawableTop="@drawable/final_balloon_gear_green_light"
-                android:text="@string/label_settings" />
-        </LinearLayout>
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/x_sett" />
+        </TableRow>
 
-        <LinearLayout
-            android:id="@+id/second"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="50dp"
-            android:orientation="horizontal" >
+        <TableRow android:layout_weight="1" >
 
             <Button
                 android:id="@+id/help"
-                style="@style/HomeButton"
-                android:drawableTop="@drawable/final_balloon_interr_green_light"
-                android:onClick="onButtonClicker"
-                android:text="@string/label_help" />
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/x_help"
+                android:onClick="onButtonClicker" />
 
             <Button
                 android:id="@+id/rate"
-                style="@style/HomeButton"
-                android:drawableTop="@drawable/final_balloon_star_green_light"
-                android:onClick="onButtonClicker"
-                android:text="@string/label_rate_title" />
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/x_rate"
+                android:onClick="onButtonClicker" />
+        </TableRow>
+    </TableLayout>
 
 </ScrollView>

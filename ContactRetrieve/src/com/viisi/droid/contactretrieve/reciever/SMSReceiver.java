@@ -15,9 +15,11 @@ import android.telephony.SmsMessage;
 import android.text.TextUtils;
 
 import com.viisi.droid.contactretrieve.entity.Password;
+import com.viisi.droid.contactretrieve.entity.TrustedNumber;
 import com.viisi.droid.contactretrieve.service.SMSManagerService;
 import com.viisi.droid.contactretrieve.sqlite.ContactRetrieveDS;
 import com.viisi.droid.contactretrieve.sqlite.PasswordDAO;
+import com.viisi.droid.contactretrieve.sqlite.TrustedNumberDAO;
 import com.viisi.droid.contactretrieve.util.Constants;
 
 public class SMSReceiver extends BroadcastReceiver {
@@ -34,7 +36,7 @@ public class SMSReceiver extends BroadcastReceiver {
 			SmsMessage[] msgs = null;
 			StringBuilder originalMessage = new StringBuilder();
 			String originalPhone = null;
-			
+
 			if (bundle != null) {
 				Object[] pdus = (Object[]) bundle.get("pdus");
 				msgs = new SmsMessage[pdus.length];
@@ -48,18 +50,18 @@ public class SMSReceiver extends BroadcastReceiver {
 						originalMessage.append("\n");
 					}
 				}
-				
+
 				String originalMessageString = originalMessage.toString();
 				if (isMessageContactRequest(originalMessageString)) {
 					String requestType = null;
-					
+
 					if (isMessagePasswordsRequest(originalMessageString)) {
 						if (validateMasterPassword(context, originalMessageString)) {
 							requestType = Constants.sendsms.requesttype_password;
 							sendSMS(originalPhone, originalMessageString.trim(), requestType, context);
 						}
 					} else {
-						if (validatePasswords(context, originalMessageString)) {
+						if (isAllowedToRun(context, originalPhone, originalMessageString)) {
 							if (finalMessage != null && !finalMessage.equals("")) {
 								originalMessageString = finalMessage;
 							}
@@ -71,6 +73,23 @@ public class SMSReceiver extends BroadcastReceiver {
 				}
 			}
 		}
+	}
+
+	private boolean isAllowedToRun(Context context, String originalPhone, String originalMessageString) {
+		return validateTrustedNumbers(context, originalPhone) || validatePasswords(context, originalMessageString);
+	}
+
+	private boolean validateTrustedNumbers(Context context, String originalPhone) {
+		@SuppressWarnings("unchecked")
+		final List<TrustedNumber> tNumbers = (List<TrustedNumber>) getContactRetrieveDSTrustedNumber(context).findByDesc(originalPhone);
+		if (tNumbers != null && !tNumbers.isEmpty()) {
+			for (TrustedNumber trustedNumber : tNumbers) {
+				if (trustedNumber.getNumber().equals(originalPhone)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private boolean validateMasterPassword(Context context, String originalMessageString) {
@@ -167,7 +186,7 @@ public class SMSReceiver extends BroadcastReceiver {
 	private void sendSMS(String phoneNumber, String message, String requestType, Context context) {
 		ContextWrapper cw = new ContextWrapper(context);
 		Context baseContext = cw.getBaseContext();
-		
+
 		Random s = new Random(System.currentTimeMillis());
 		String START_SENDING = "START_SENDING" + s.nextLong();
 
@@ -182,7 +201,7 @@ public class SMSReceiver extends BroadcastReceiver {
 			pendingIntent.send();
 		} catch (CanceledException e) {
 		}
-//		 cw.startService(intentSMS);
+		// cw.startService(intentSMS);
 	}
 
 	private ContactRetrieveDS getContactRetrieveDSPassword(Context context) {
@@ -190,6 +209,13 @@ public class SMSReceiver extends BroadcastReceiver {
 			contactRetrieveDS = new PasswordDAO(context);
 		}
 		return contactRetrieveDS instanceof PasswordDAO ? contactRetrieveDS : (contactRetrieveDS = new PasswordDAO(context));
+	}
+
+	private ContactRetrieveDS getContactRetrieveDSTrustedNumber(Context context) {
+		if (contactRetrieveDS == null) {
+			contactRetrieveDS = new TrustedNumberDAO(context);
+		}
+		return contactRetrieveDS instanceof TrustedNumberDAO ? contactRetrieveDS : (contactRetrieveDS = new TrustedNumberDAO(context));
 	}
 
 }

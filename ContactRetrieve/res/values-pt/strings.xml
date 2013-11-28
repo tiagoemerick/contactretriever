@@ -2,13 +2,13 @@
 <resources>
 
     <string name="app_name">Recuperador de contatos</string>
-    <string name="title_header">Recuperar</string>
+    <string name="title_header">Recuperar Contatos</string>
     <string name="title_footer">Contatos</string>
     
     <string name="content_description">Recuperador de contatos</string>
 
     <!-- Global -->
-    <string name="label_loading_message">Espere. :)</string>
+    <string name="label_loading_message">Aguarde. :)</string>
     <string name="label_enter">Entrar</string>
     <string name="label_ok">OK</string>
     <string name="label_yes">Sim</string>
@@ -27,7 +27,7 @@
     <string name="label_help">Ajuda</string>
     <string name="message_master_passw_required">É necessário cadastrar uma senha mestre para acessar as configurações</string>
     <string name="message_wrong_passw">Senha inválida</string>
-    <string name="message_empty_passwords">Não há senhas disponíveis. O programa agora está aberto e funcionará sem elas</string>
+    <string name="message_empty_passwords">Não há senhas disponíveis. O programa agora está aberto e funcionará sem elas.</string>
     <string name="subject_password_recover">Senha recuperada</string>
     <string name="text_password_recover">Sua senha é</string>
     
@@ -35,14 +35,15 @@
     <string name="send_mail_status_ok">Email foi enviado com sucesso</string>
     <string name="send_mail_status_error">Ocorreu um erro ao enviar o email. Você está conectado a internet?</string>
     <string name="send_mail_infor_one">Um email será enviado para</string>
-    <string name="send_mail_infor_two">Por favor, tenha certeza que você está conectado a internet</string>
+    <string name="send_mail_infor_two">Por favor, tenha certeza que você está conectado a internet.</string>
     <string name="button_send">Enviar</string>
 
     <!-- Rate -->
-    <string name="label_rate_title">Avalie</string>
-    <string name="label_rate_message_1">Se você está curtindo </string>
-    <string name="label_rate_message_2">, por favor avalie. Obrigado pelo suporte! :)</string>
-    <string name="label_rate_remind_later">Lembre-me depois</string>
+    <string name="label_rate_title">Avaliação</string>
+    <string name="label_rate_message_1">Se o </string>
+    <string name="label_rate_message_2"> está sendo útil, por favor avalie! Sua opinião é muito importante! :)</string>
+    <string name="label_rate_rate">Avaliar</string>
+    <string name="label_rate_remind_later">Depois</string>
     <string name="label_rate_no_thanks">Não, obrigado</string>
 
     <!-- phone types -->
@@ -55,6 +56,8 @@
     <string name="sms_send">SMS enviada</string>
     <string name="sms_not_send">Falha ao enviar SMS</string>
     <string name="contact_not_found">Nenhum contato encontrado</string>
+    <string name="share_message">Confira este aplicativo no Google Play: https://play.google.com/store/apps/details?id=com.viisi.droid.contactretrieve</string>
+    <string name="share_via">Compartilhar via</string>
 
     <!-- Notification -->
     <string name="message_error_notification">Ocorreu um erro ao tentar enviar SMS</string>
@@ -66,14 +69,20 @@
     <string name="sett_passw_label">Senha para autenticação</string>
     <string name="sett_list_passw">Senhas salvas</string>
     <string name="sett_hint_passw">Senha</string>
+    <string name="sett_hint_trustednumber">Telefone confiável</string>
+    <string name="sett_hint_trustednumbers">Telefones confiáveis</string>
+    <string name="sett_hint_passwauth">Senhas de autenticação</string>
     <string name="sett_message_passw_delete">Deseja mesmo excluir?</string>
     <string name="sett_button_add_passw">Inserir</string>
+    <string name="sett_button_findcontact">Procurar</string>
 	<string name="sett_button_delall_passw">Apagar todas</string>    
     <string name="sett_toast_invalid_passw">Valor inválido</string>
     <string name="sett_hint_change_mail">Novo email</string>
     <string name="sett_hint_change_masterpassw">Nova senha mestre</string>
     <string name="sett_text_change_mail">Email atual</string>
     <string name="sett_change_mail_ok">Alterado!</string>
+    <string name="sett_change_mail_button">Alterar email</string>
+    <string name="sett_change_maspwss_button">Alterar senha mestre</string>
 
     <!-- Settings -->
     <string name="security_title">Segurança</string>

@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Contact Retriever</string>
-    <string name="title_header">Contact</string>
+    <string name="title_header">Contact Retriever</string>
     <string name="title_footer">Retriever</string>
     
     <string name="content_description">Contact Retriever</string>
@@ -27,7 +27,7 @@
     <string name="label_help">Help</string>
     <string name="message_master_passw_required">A master password is required to access settings</string>
     <string name="message_wrong_passw">Wrong password</string>
-    <string name="message_empty_passwords">There are no available passwords. The program is open now, and it is going to work without them</string>
+    <string name="message_empty_passwords">There are no available passwords. The program is open now, and it is going to work without them.</string>
     <string name="subject_password_recover">Password recovered</string>
     <string name="text_password_recover">Your password is</string>
     
@@ -40,9 +40,10 @@
     
     <!-- Rate -->
     <string name="label_rate_title">Rate</string>
-    <string name="label_rate_message_1">If you enjoy using </string>
-    <string name="label_rate_message_2">, please take a moment to rate it. Thanks for your support! :)</string>
-    <string name="label_rate_remind_later">Remind me later</string>
+    <string name="label_rate_message_1">If the </string>
+    <string name="label_rate_message_2"> is being useful, please rate! Your opinion is very important! :)</string>
+    <string name="label_rate_rate">Rate</string>
+    <string name="label_rate_remind_later">Later</string>
     <string name="label_rate_no_thanks">No, thanks</string>
     
     <!-- phone types -->
@@ -55,6 +56,8 @@
     <string name="sms_send">SMS sent</string>
     <string name="sms_not_send">Fail in send SMS</string>
     <string name="contact_not_found">No contact found</string>
+    <string name="share_message">Check it out this app on Google Play: https://play.google.com/store/apps/details?id=com.viisi.droid.contactretrieve</string>
+    <string name="share_via">Share via</string>
 
     <!-- Notification -->
     <string name="message_error_notification">An error occurred while trying to send SMS</string>
@@ -66,14 +69,20 @@
     <string name="sett_passw_label">Password for authentication</string>
     <string name="sett_list_passw">Passwords saved</string>
     <string name="sett_hint_passw">Password</string>
+    <string name="sett_hint_trustednumber">Trusted number</string>
+    <string name="sett_hint_trustednumbers">Trusted numbers</string>
+    <string name="sett_hint_passwauth">Authentication passwords</string>
     <string name="sett_message_passw_delete">Are you sure you want to delete?</string>
     <string name="sett_button_add_passw">Insert</string>
+    <string name="sett_button_findcontact">Find</string>
     <string name="sett_button_delall_passw">Delete all</string>
     <string name="sett_toast_invalid_passw">Invalid value</string>
     <string name="sett_hint_change_mail">New mail address</string>
     <string name="sett_hint_change_masterpassw">New master password</string>
-    <string name="sett_text_change_mail">Actual mail address</string>
+    <string name="sett_text_change_mail">Current mail</string>
     <string name="sett_change_mail_ok">Changed!</string>
+    <string name="sett_change_mail_button">Change mail</string>
+    <string name="sett_change_maspwss_button">Change master password</string>
     
     <!-- Settings -->
     <string name="security_title">Security</string>

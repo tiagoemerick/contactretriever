@@ -91,6 +91,26 @@ public class PasswordDAO extends ContactRetrieveDS {
 		return passw;
 	}
 
+	public List<Password> findByDesc(String number) {
+		List<Password> passws = new ArrayList<Password>();
+		if (number != null && !number.trim().equals("")) {
+			open();
+
+			Cursor cursor = database.query(SQLiteHelper.TABLE_NAME_PASSWORD, allColumns, SQLiteHelper.PASSWORD_COLUMN_PASSWORD + " like %" + number + "%", null, null, null, null);
+			cursor.moveToFirst();
+
+			while (!cursor.isAfterLast()) {
+				Password passw = cursorToPassword(cursor);
+				passws.add(passw);
+				cursor.moveToNext();
+			}
+
+			cursor.close();
+			close();
+		}
+		return passws;
+	}
+
 	private Password cursorToPassword(Cursor cursor) {
 		Password password = new Password();
 		password.setId(cursor.getLong(0));

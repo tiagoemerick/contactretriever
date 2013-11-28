@@ -35,5 +35,7 @@ public abstract class ContactRetrieveDS {
 
 	public abstract Object findById(Long id);
 
+	public abstract List<? extends IEntity> findByDesc(String desc);
+
 	public abstract int count();
 }

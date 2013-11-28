@@ -2,26 +2,23 @@ package com.viisi.droid.contactretrieve.activity;
 
 import java.util.List;
 
-import android.app.Activity;
+import org.holoeverywhere.LayoutInflater;
+import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.preference.PreferenceManagerHelper;
+import org.holoeverywhere.preference.SharedPreferences;
+
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viisi.droid.contactretrieve.R;
@@ -80,15 +77,12 @@ public class ContactRetrieveActivity extends Activity {
 		}
 	}
 
-	private static final int ID_EDIT_TEXT_MASTER_PASSW_SETTINGS = 25;
-	private static final int ID_EDIT_TEXT_MASTER_PASSW = 30;
-	private static final int ID_EDIT_TEXT_MAIL = 35;
-
 	private Button settings;
 	private Button createMasterPassw;
 	private Button recoverMasterPassw;
 	private Button help;
 	private Button rate;
+	private Button contactimg;
 
 	private boolean masterPasswValidated;
 
@@ -114,7 +108,7 @@ public class ContactRetrieveActivity extends Activity {
 	 */
 	@SuppressWarnings("unused")
 	private void resetValues() {
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.preferences.preferencefilename, 0);
+		SharedPreferences prefs = PreferenceManagerHelper.wrap(getApplicationContext(), Constants.preferences.preferencefilename, 0);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(Constants.preferences.preference_master_password, "");
 		editor.putString(Constants.preferences.preference_mail, "");
@@ -179,37 +173,40 @@ public class ContactRetrieveActivity extends Activity {
 		}
 	};
 
+	private OnClickListener contactimgListener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+			sharingIntent.setType("text/plain");
+			String shareBody = getApplicationContext().getString(R.string.share_message);
+			sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+			startActivity(Intent.createChooser(sharingIntent, getApplicationContext().getString(R.string.share_via)));
+		}
+	};
+
 	private OnClickListener settingsListener = new OnClickListener() {
 		public void onClick(View v) {
 			if (hasMasterPasswPreferences()) {
 				if (masterPasswValidated) {
 					startPreferences();
 				} else {
-					final Dialog dialog = new Dialog(ContactRetrieveActivity.this);
-					dialog.setTitle(getApplicationContext().getString(R.string.label_type_master_password));
+					AlertDialog.Builder builder = new AlertDialog.Builder(ContactRetrieveActivity.this);
+					LayoutInflater inflater = ContactRetrieveActivity.this.getLayoutInflater();
+					builder.setTitle(getApplicationContext().getString(R.string.label_type_master_password));
 
-					LinearLayout ll = new LinearLayout(ContactRetrieveActivity.this);
-					ll.setOrientation(LinearLayout.VERTICAL);
+					View view = inflater.inflate(R.layout.dialog_enter_settings, null);
+					final EditText masterPassw = (EditText) view.findViewById(R.id.masterPassw);
 
-					final EditText masterPassw = new EditText(ContactRetrieveActivity.this);
-					masterPassw.setId(ID_EDIT_TEXT_MASTER_PASSW_SETTINGS);
-					masterPassw.setWidth(50);
-					masterPassw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-					ll.addView(masterPassw);
-
-					Button validate = new Button(ContactRetrieveActivity.this);
-					validate.setId(5);
-					validate.setText(getApplication().getString(R.string.label_enter));
-					validate.setOnClickListener(new OnClickListener() {
-						public void onClick(View v) {
-							SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.preferences.preferencefilename, 0);
+					builder.setView(view).setPositiveButton(getApplication().getString(R.string.label_enter), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int id) {
+							SharedPreferences prefs = PreferenceManagerHelper.wrap(getApplicationContext(), Constants.preferences.preferencefilename, 0);
 							String masterPasswP = prefs.getString(Constants.preferences.preference_master_password, "");
 
 							if (masterPassw != null && masterPassw.getText() != null && !masterPassw.getText().toString().equals("")) {
 								if (!masterPasswP.equals("") && masterPasswP.equalsIgnoreCase(masterPassw.getText().toString())) {
 									masterPasswValidated = true;
 
-									dialog.dismiss();
 									startPreferences();
 								} else {
 									Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.message_wrong_passw), Toast.LENGTH_SHORT).show();
@@ -218,12 +215,10 @@ public class ContactRetrieveActivity extends Activity {
 								Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.label_invalid_value), Toast.LENGTH_SHORT).show();
 							}
 						}
-					});
+					}).setNegativeButton(getApplication().getString(R.string.label_cancel), null);
 
-					ll.addView(validate);
-
-					dialog.setContentView(ll);
-					dialog.show();
+					builder.create();
+					builder.show();
 				}
 
 			} else {
@@ -247,152 +242,114 @@ public class ContactRetrieveActivity extends Activity {
 			startActivity(i);
 		}
 	};
+
 	private OnClickListener recoverMasterPasswListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			final SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.preferences.preferencefilename, 0);
+			final SharedPreferences prefs = PreferenceManagerHelper.wrap(getApplicationContext(), Constants.preferences.preferencefilename, 0);
 			final String mailRecover = prefs.getString(Constants.preferences.preference_mail, "");
 
 			if (!mailRecover.equals("")) {
-				final Dialog dialog = new Dialog(ContactRetrieveActivity.this);
-				dialog.setTitle(getApplicationContext().getString(R.string.label_recover_master_password));
-
-				LinearLayout ll = new LinearLayout(ContactRetrieveActivity.this);
-				ll.setOrientation(LinearLayout.VERTICAL);
-
-				TextView tvMasterPassw = new TextView(ContactRetrieveActivity.this);
-				StringBuilder textinfo = new StringBuilder();
-				textinfo.append(getApplicationContext().getString(R.string.send_mail_infor_one));
-				textinfo.append(": ");
-				textinfo.append(mailRecover);
-				textinfo.append(". ");
-				textinfo.append(getApplicationContext().getString(R.string.send_mail_infor_two));
-				tvMasterPassw.setText(textinfo.toString());
-
-				ll.addView(tvMasterPassw);
-
-				Button btSend = new Button(ContactRetrieveActivity.this);
-				btSend.setId(6);
-				btSend.setText(getApplication().getString(R.string.button_send));
-				btSend.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						dialog.dismiss();
-						sendMail(prefs, mailRecover);
-					}
-
-					private ProgressDialog createProgressDialog() {
-						final ProgressDialog dialog = ProgressDialog.show(ContactRetrieveActivity.this, getApplicationContext().getString(R.string.app_name), getApplicationContext().getString(R.string.label_loading_message), false, false);
-						dialog.setIcon(R.drawable.ic_launcher);
-						return dialog;
-					}
-
-					private void sendMail(final SharedPreferences prefs, final String mailRecover) {
-						final ProgressDialog sendProgress = createProgressDialog();
-
-						String subject = new String(getApplicationContext().getString(R.string.app_name) + ": " + getApplicationContext().getString(R.string.subject_password_recover));
-						String masterPassw = prefs.getString(Constants.preferences.preference_master_password, "");
-						String text = new String(getApplicationContext().getString(R.string.text_password_recover) + ": " + masterPassw);
-
-						final Mail m = new Mail();
-
-						String[] toArr = { mailRecover };
-						m.setTo(toArr);
-						m.setFrom(Constants.mail.mail_send_fakefrom);
-						m.setSubject(subject);
-						m.setBody(text);
-
-						final Handler handler = new HandlerExtension(sendProgress, ContactRetrieveActivity.this);
-
-						Runnable runnableSendMail = new Runnable() {
-							@Override
-							public void run() {
-								Message msg = new Message();
-								Bundle data = new Bundle();
-								try {
-									// howAddAttachment(m);
-									boolean send = m.send();
-									data.putBoolean(Constants.mail.mail_send_status, send);
-								} catch (Exception e) {
-                                    System.out.println(e);
-								} finally {
-									msg.setData(data);
-									handler.sendMessage(msg);
-								}
-							}
-
-							// private void howAddAttachment(final Mail m)
-							// throws Exception {
-							// File m_Sdcard =
-							// Environment.getExternalStorageDirectory();
-							// File cacheDir = new
-							// File(m_Sdcard.getAbsolutePath() +
-							// "/CriarFolder");
-							// if (!cacheDir.exists()) {
-							// cacheDir.mkdirs();
-							// }
-							// m.addAttachment(m_Sdcard.getAbsolutePath() +
-							// "/CriarFolder/arquivo.pdf");
-							// }
-						};
-						Thread sendMailThread = new Thread(runnableSendMail);
-						sendMailThread.start();
-					}
-				});
-				ll.addView(btSend);
-
-				Button btCancel = new Button(ContactRetrieveActivity.this);
-				btCancel.setText(getApplicationContext().getString(R.string.label_cancel));
-				btCancel.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						dialog.dismiss();
-					}
-				});
-				ll.addView(btCancel);
-
-				dialog.setContentView(ll);
-				dialog.show();
+				createDialogSendMasterPassw(prefs, mailRecover);
 			}
+		}
+
+		private void createDialogSendMasterPassw(final SharedPreferences prefs, final String mailRecover) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(ContactRetrieveActivity.this);
+
+			StringBuilder textinfo = new StringBuilder();
+			textinfo.append(getApplicationContext().getString(R.string.send_mail_infor_one));
+			textinfo.append(": ");
+			textinfo.append(mailRecover);
+			textinfo.append(". ");
+			textinfo.append(getApplicationContext().getString(R.string.send_mail_infor_two));
+
+			builder.setMessage(textinfo.toString());
+
+			builder.setTitle(R.string.label_recover_master_password).setPositiveButton(getApplication().getString(R.string.button_send), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.dismiss();
+					sendMail(prefs, mailRecover);
+				}
+
+				private ProgressDialog createProgressDialog() {
+					final ProgressDialog dialog = ProgressDialog.show(ContactRetrieveActivity.this, null, getApplicationContext().getString(R.string.label_loading_message), false, false);
+					return dialog;
+				}
+
+				private void sendMail(final SharedPreferences prefs, final String mailRecover) {
+					final ProgressDialog sendProgress = createProgressDialog();
+
+					String subject = new String(getApplicationContext().getString(R.string.app_name) + ": " + getApplicationContext().getString(R.string.subject_password_recover));
+					String masterPassw = prefs.getString(Constants.preferences.preference_master_password, "");
+					String text = new String(getApplicationContext().getString(R.string.text_password_recover) + ": " + masterPassw);
+
+					final Mail m = new Mail();
+
+					String[] toArr = { mailRecover };
+					m.setTo(toArr);
+					m.setFrom(Constants.mail.mail_send_fakefrom);
+					m.setSubject(subject);
+					m.setBody(text);
+
+					final Handler handler = new HandlerExtension(sendProgress, ContactRetrieveActivity.this);
+
+					Runnable runnableSendMail = new Runnable() {
+						@Override
+						public void run() {
+							Message msg = new Message();
+							Bundle data = new Bundle();
+							try {
+								// howAddAttachment(m);
+								boolean send = m.send();
+								data.putBoolean(Constants.mail.mail_send_status, send);
+							} catch (Exception e) {
+								System.out.println(e);
+							} finally {
+								msg.setData(data);
+								handler.sendMessage(msg);
+							}
+						}
+						// private void howAddAttachment(final Mail m)
+						// throws Exception {
+						// File m_Sdcard =
+						// Environment.getExternalStorageDirectory();
+						// File cacheDir = new
+						// File(m_Sdcard.getAbsolutePath() +
+						// "/CriarFolder");
+						// if (!cacheDir.exists()) {
+						// cacheDir.mkdirs();
+						// }
+						// m.addAttachment(m_Sdcard.getAbsolutePath() +
+						// "/CriarFolder/arquivo.pdf");
+						// }
+					};
+					Thread sendMailThread = new Thread(runnableSendMail);
+					sendMailThread.start();
+				}
+			}).setNegativeButton(getApplicationContext().getString(R.string.label_cancel), null);
+			builder.create();
+			builder.show();
 		}
 	};
 
 	private OnClickListener createMasterPasswListener = new OnClickListener() {
 		public void onClick(View v) {
-			final Dialog dialog = new Dialog(ContactRetrieveActivity.this);
-			dialog.setTitle(getApplicationContext().getString(R.string.label_create_master_password));
 
-			LinearLayout ll = new LinearLayout(ContactRetrieveActivity.this);
-			ll.setOrientation(LinearLayout.VERTICAL);
+			AlertDialog.Builder builder = new AlertDialog.Builder(ContactRetrieveActivity.this);
+			LayoutInflater inflater = ContactRetrieveActivity.this.getLayoutInflater();
+			builder.setTitle(getApplicationContext().getString(R.string.label_create_master_password));
 
-			TextView tvMasterPassw = new TextView(ContactRetrieveActivity.this);
-			tvMasterPassw.setText(R.string.label_type_master_password);
-			ll.addView(tvMasterPassw);
+			View view = inflater.inflate(R.layout.dialog_create_master_passw, null);
+			final EditText masterPasw = (EditText) view.findViewById(R.id.createMasterPassw);
+			final EditText mail = (EditText) view.findViewById(R.id.mailToRecover);
 
-			final EditText masterPasw = new EditText(ContactRetrieveActivity.this);
-			masterPasw.setId(ID_EDIT_TEXT_MASTER_PASSW);
-			masterPasw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-			ll.addView(masterPasw);
-
-			TextView tvMail = new TextView(ContactRetrieveActivity.this);
-			tvMail.setText(R.string.label_mail_recover_master_password);
-			ll.addView(tvMail);
-
-			final EditText mail = new EditText(ContactRetrieveActivity.this);
-			mail.setId(ID_EDIT_TEXT_MAIL);
-			mail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-			ll.addView(mail);
-
-			RelativeLayout rl = new RelativeLayout(ContactRetrieveActivity.this);
-
-			RelativeLayout.LayoutParams lpSave = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			lpSave.leftMargin = 75;
-
-			Button saveMasterPassw = new Button(ContactRetrieveActivity.this);
-			saveMasterPassw.setId(10);
-			saveMasterPassw.setText(getApplication().getString(R.string.label_save));
-			saveMasterPassw.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
+			builder.setView(view).setPositiveButton(getApplication().getString(R.string.label_save), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
 					if (isValidContent()) {
-						SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.preferences.preferencefilename, 0);
+						SharedPreferences prefs = PreferenceManagerHelper.wrap(getApplicationContext(), Constants.preferences.preferencefilename, 0);
 						SharedPreferences.Editor editor = prefs.edit();
 						editor.putString(Constants.preferences.preference_master_password, masterPasw.getText().toString());
 						editor.putString(Constants.preferences.preference_mail, mail.getText().toString());
@@ -415,26 +372,11 @@ public class ContactRetrieveActivity extends Activity {
 					}
 					return false;
 				}
-			});
-			rl.addView(saveMasterPassw, lpSave);
 
-			Button cancel = new Button(ContactRetrieveActivity.this);
-			cancel.setId(20);
-			cancel.setText(getApplication().getString(R.string.label_cancel));
-			cancel.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					dialog.dismiss();
-				}
-			});
+			}).setNegativeButton(getApplication().getString(R.string.label_cancel), null);
 
-			RelativeLayout.LayoutParams lpCancel = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			lpCancel.addRule(RelativeLayout.RIGHT_OF, saveMasterPassw.getId());
-			rl.addView(cancel, lpCancel);
-
-			ll.addView(rl);
-
-			dialog.setContentView(ll);
-			dialog.show();
+			builder.create();
+			builder.show();
 		}
 	};
 
@@ -444,6 +386,7 @@ public class ContactRetrieveActivity extends Activity {
 		recoverMasterPassw = (Button) this.findViewById(R.id.recoverMasterPassw);
 		help = (Button) this.findViewById(R.id.help);
 		rate = (Button) this.findViewById(R.id.rate);
+		contactimg = (Button) this.findViewById(R.id.contactimg);
 	}
 
 	private void createComponentsListeners() {
@@ -452,10 +395,11 @@ public class ContactRetrieveActivity extends Activity {
 		recoverMasterPassw.setOnClickListener(recoverMasterPasswListener);
 		help.setOnClickListener(helpListener);
 		rate.setOnClickListener(rateListener);
+		contactimg.setOnClickListener(contactimgListener);
 	}
 
 	private boolean hasMasterPasswPreferences() {
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constants.preferences.preferencefilename, 0);
+		SharedPreferences prefs = PreferenceManagerHelper.wrap(getApplicationContext(), Constants.preferences.preferencefilename, 0);
 		String masterPassw = prefs.getString(Constants.preferences.preference_master_password, "");
 		if (!masterPassw.equals("")) {
 			return true;

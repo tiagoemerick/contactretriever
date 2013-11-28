@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/fundo"
     android:fillViewport="false" >
 
     <RelativeLayout
@@ -14,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:text="@string/title_howto"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_preferences" />
 
         <View
@@ -21,8 +23,8 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/helpHowto"
-            android:background="@android:color/darker_gray" />
-        
+            android:background="@android:color/background_dark" />
+
         <TextView
             android:id="@+id/helpMasterPassw"
             android:layout_width="fill_parent"
@@ -30,6 +32,7 @@
             android:layout_below="@+id/line"
             android:layout_marginTop="35dp"
             android:text="@string/title_master_password"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_preferences" />
 
         <View
@@ -37,7 +40,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/helpMasterPassw"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/background_dark" />
 
         <TextView
             android:id="@+id/helpPassw"
@@ -46,6 +49,7 @@
             android:layout_below="@+id/linetwo"
             android:layout_marginTop="35dp"
             android:text="@string/title_passwords"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_preferences" />
 
         <View
@@ -53,7 +57,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/helpPassw"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/background_dark" />
 
         <TextView
             android:id="@+id/helpSymbolsPassw"
@@ -62,6 +66,7 @@
             android:layout_below="@+id/linethree"
             android:layout_marginTop="35dp"
             android:text="@string/title_symbol"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_preferences" />
 
         <View
@@ -69,7 +74,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/helpSymbolsPassw"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/background_dark" />
 
         <TextView
             android:id="@+id/helpCosts"
@@ -78,6 +83,7 @@
             android:layout_below="@+id/linefour"
             android:layout_marginTop="35dp"
             android:text="@string/title_costs"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_preferences" />
 
         <View
@@ -85,8 +91,8 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/helpCosts"
-            android:background="@android:color/darker_gray" />
-        
+            android:background="@android:color/background_dark" />
+
         <TextView
             android:id="@+id/helpAbout"
             android:layout_width="fill_parent"
@@ -94,15 +100,15 @@
             android:layout_below="@+id/linefive"
             android:layout_marginTop="35dp"
             android:text="@string/title_about"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_preferences" />
-        
+
         <View
             android:id="@+id/linesix"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/helpAbout"
-            android:background="@android:color/darker_gray" />
-        
+            android:background="@android:color/background_dark" />
     </RelativeLayout>
 
 </ScrollView>

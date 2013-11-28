@@ -4,54 +4,50 @@
     android:layout_height="fill_parent"
     android:fillViewport="false" >
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/lineZero"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textMailLabel"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="15dp"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/textNewMail"
-            android:layout_width="210dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textMailLabel"
+            android:layout_marginTop="5dp"
             android:hint="@string/sett_hint_change_mail"
             android:inputType="textEmailAddress" >
         </EditText>
 
         <Button
             android:id="@+id/changeMail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textNewMail"
-            android:layout_alignBottom="@+id/textNewMail"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="0dp"
-            android:text="@string/label_change" />
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:text="@string/sett_change_mail_button" />
 
         <EditText
             android:id="@+id/textNewMasterPassw"
-            android:layout_width="210dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textNewMail"
+            android:layout_marginTop="35dp"
             android:hint="@string/sett_hint_change_masterpassw"
             android:inputType="text" >
         </EditText>
 
         <Button
             android:id="@+id/changeMasterPassw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textNewMasterPassw"
-            android:layout_alignBottom="@+id/textNewMasterPassw"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="0dp"
-            android:text="@string/label_change" />
-    </RelativeLayout>
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:text="@string/sett_change_maspwss_button" />
+    </LinearLayout>
 
 </ScrollView>
