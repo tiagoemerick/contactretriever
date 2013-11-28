@@ -4,7 +4,10 @@
     android:versionCode="7"
     android:versionName="1.0.5" >
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="19" />
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="19" />
+
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
@@ -15,15 +18,16 @@
 
     <application
         android:name="org.holoeverywhere.app.Application"
-        android:label="@string/app_name"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/Holo.Theme.NoActionBar"
-        android:allowBackup="false">
-        <activity android:label="@string/app_name"
-            android:name=".activity.ContactRetrieveActivity"
+        android:label="@string/app_name"
+        android:theme="@style/Holo.Theme.NoActionBar" >
+        <activity
+            android:name=".activity.SplashScreen"
             android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,36 +35,45 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.ContactRetrieveActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
             android:name=".activity.PreferencesActivity"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.viisi.droid.contactretrieve.activity.PreferencesActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name=".activity.HelpActivity"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.viisi.droid.contactretrieve.activity.HelpActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
-        <service android:name=".service.MessageNotificationService" android:exported="false">
+
+        <service
+            android:name=".service.MessageNotificationService"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.viisi.droid.contactretrieve.service.MessageNotificationService" />
             </intent-filter>
         </service>
-        <service android:name=".service.SMSManagerService" android:exported="false">
+        <service
+            android:name=".service.SMSManagerService"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.viisi.droid.contactretrieve.service.SMSManagerService" />
             </intent-filter>
         </service>
-        
+
         <receiver
             android:name=".reciever.SMSReceiver"
             android:permission="android.permission.VIBRATE" >

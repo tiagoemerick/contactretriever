@@ -61,7 +61,7 @@ public class SMSReceiver extends BroadcastReceiver {
 							sendSMS(originalPhone, originalMessageString.trim(), requestType, context);
 						}
 					} else {
-						if (isAllowedToRun(context, originalPhone, originalMessageString)) {
+						if (validatePasswords(context, originalMessageString)) {
 							if (finalMessage != null && !finalMessage.equals("")) {
 								originalMessageString = finalMessage;
 							}

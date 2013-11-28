@@ -93,6 +93,8 @@ public class ContactRetrieveActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+
 		masterPasswValidated = false;
 
 		createComponentsView();
@@ -101,6 +103,12 @@ public class ContactRetrieveActivity extends Activity {
 		showMessageEmptyPasswords();
 
 		AppRater.app_launched(this);
+	}
+
+	@Override
+	protected void onPause() {
+		overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
+		super.onPause();
 	}
 
 	/**

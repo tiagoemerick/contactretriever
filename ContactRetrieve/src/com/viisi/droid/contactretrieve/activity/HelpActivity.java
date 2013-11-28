@@ -34,6 +34,12 @@ public class HelpActivity extends Activity {
 		setContentView(layout);
 		createComponents(layout);
 	}
+	
+	@Override
+	protected void onPause() {
+		overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+		super.onPause();
+	}
 
 	private OnClickListener goViewHowto = new OnClickListener() {
 		public void onClick(View v) {
