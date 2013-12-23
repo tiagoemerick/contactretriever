@@ -17,6 +17,10 @@
     <string name="label_cancel">Cancelar</string>
     <string name="label_invalid_value">Valor inválido</string>
     <string name="label_change">Alterar</string>
+    <string name="label_gotit">Entendi</string>
+    <string name="label_readmore">Leia mais</string>
+    <string name="label_alert_notification_title">Atenção</string>
+    <string name="label_alert_notification">Devido a integração do Hangouts com o aplicativo de SMS realizada pelo Google é possível que o aplicativo não funcione corretamente pois o Google ainda não disponibilizou ferramentas para integração com o Hangouts. Se quiser saber mais, clique em \'Leia mais\' e leia a última seção do site.</string>
     
     <!-- Principal -->
     <string name="label_create_master_password">Criar Senha Mestre</string>
@@ -130,7 +134,7 @@
         e o valor de um ou mais (dependendo do tamanho do conteúdo da mensagem) SMS comum que será utilizado pelo seu aparelho para retornar automaticamente o contato buscado.\n\n
         Caso você queira acessar o menu <b>Recuperar Senha Mestre</b>, você deverá estar conectado a internet. Esta opção de menu irá enviar um email para o email cadastrado com a senha em anexo.\nNeste caso fique atento aos custos de uma conexão 3G/4G ou outra qualquer.
     </string>
-    <string name="text_about"><b>Nome: </b>Tiago Anozé Emerick\n<b>Idade: 24\n</b><b>Moro: </b>Brasil\n<b>Sobre: </b>Autodidata. Gosto de novos desafios e esportes em geral.\n\n Gostou? Críticas? Sugestões? Elogios?\n\n<b>Contato: </b>tiagoemerick@gmail.com\n\n\n\n\n\n\n<b>Parceiros</b>\n\n<a href="www.kabrabom.com.br">www.kabrabom.com.br</a>
+    <string name="text_about"><b>Nome: </b>Tiago Anozé Emerick\n<b>Idade: 25\n</b><b>Moro: </b>Brasil\n<b>Sobre: </b>Autodidata. Gosto de novos desafios e esportes em geral.\n\n Gostou? Críticas? Sugestões? Elogios?\n\n<b>Contato: </b>tiagoemerick@gmail.com\n\n\n\n\n\n\n<b>Parceiros</b>\n\n<a href="www.kabrabom.com.br">www.kabrabom.com.br</a>
     </string>
 
 </resources>

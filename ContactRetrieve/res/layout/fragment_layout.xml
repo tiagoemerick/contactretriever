@@ -17,7 +17,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@drawable/x_add"
+                android:background="@drawable/add_masterpassw"
                 android:visibility="gone" />
 
             <Button
@@ -25,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@drawable/x_recover"
+                android:background="@drawable/recover_masterpassw"
                 android:visibility="gone" />
 
             <Button
@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@drawable/x_sett" />
+                android:background="@drawable/settings" />
         </TableRow>
 
         <TableRow android:layout_weight="1" >
@@ -43,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@drawable/x_help"
+                android:background="@drawable/help"
                 android:onClick="onButtonClicker" />
 
             <Button
@@ -51,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="@drawable/x_rate"
+                android:background="@drawable/rate"
                 android:onClick="onButtonClicker" />
         </TableRow>
     </TableLayout>

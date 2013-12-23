@@ -17,6 +17,10 @@
     <string name="label_cancel">Cancel</string>
     <string name="label_invalid_value">Invalid value</string>
     <string name="label_change">Change</string>
+    <string name="label_gotit">Got it</string>
+    <string name="label_readmore">Read more</string>
+    <string name="label_alert_notification_title">Attention</string>
+    <string name="label_alert_notification">Due to integration of Hangouts with the SMS application made ​​by Google it is possible that the application does not work properly because Google has not released tools to integrate with Hangouts. If you want to know more, click \'Read more\' and read the last section of the website.</string>
     
     <!-- Principal -->
     <string name="label_create_master_password">Create Master Password</string>
@@ -130,7 +134,7 @@
 		and a single or more (depending on text message length response) common text message (SMS) that will be sent automatically from your device with contact searched.\n\n
 		If you want to access <b>Recover Master Password</b> menu, make sure that you have a established internet connection. This menu option will send an email to the previously registered email with a master password in attachment.\nIn this case pay attention to additional cost of 3G∕4G connection.
     </string>
-    <string name="text_about"><b>Name: </b>Tiago Anozé Emerick\n<b>Age: 24\n</b><b>Living: </b>Brazil\n<b>About me: </b>Self-taught. I like new challenges and sports in general.\n\n Like it? Reviews? Suggestions? Compliments?\n\n<b>Contact me: </b>tiagoemerick@gmail.com
+    <string name="text_about"><b>Name: </b>Tiago Anozé Emerick\n<b>Age: 25\n</b><b>Living: </b>Brazil\n<b>About me: </b>Self-taught. I like new challenges and sports in general.\n\n Like it? Reviews? Suggestions? Compliments?\n\n<b>Contact me: </b>tiagoemerick@gmail.com
     </string>
     
 </resources>
