@@ -96,7 +96,7 @@ public class TrustedNumberDAO extends ContactRetrieveDS {
 		if (number != null && !number.trim().equals("")) {
 			open();
 
-			Cursor cursor = database.query(SQLiteHelper.TABLE_NAME_TRUSTEDNUMBERS, allColumns, SQLiteHelper.TRUSTEDNUMBERS_COLUMN_NUMBER + " like %" + number + "%", null, null, null, null);
+			Cursor cursor = database.query(SQLiteHelper.TABLE_NAME_TRUSTEDNUMBERS, allColumns, SQLiteHelper.TRUSTEDNUMBERS_COLUMN_NUMBER + " like " + number, null, null, null, null);
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
 				TrustedNumber passw = cursorToTrustedNumber(cursor);

@@ -102,7 +102,7 @@ public class ContactRetrieveActivity extends Activity {
 		showHideComponents();
 		showMessageEmptyPasswords();
 
-		AlertNotification.showRateDialog(this);
+		//AlertNotification.showRateDialog(this);
 		AppRater.app_launched(this);
 	}
 

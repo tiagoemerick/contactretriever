@@ -29,7 +29,6 @@ import com.viisi.droid.contactretrieve.sqlite.ContactRetrieveDS;
 import com.viisi.droid.contactretrieve.sqlite.PasswordDAO;
 import com.viisi.droid.contactretrieve.util.Constants;
 import com.viisi.droid.contactretrieve.util.PDUUtil;
-import com.viisi.droid.contactretrieve.util.SendSMSBugCorrection;
 import com.viisi.droid.contactretrieve.util.StringUtil;
 
 public class SMSManagerService extends Service {
@@ -222,10 +221,10 @@ public class SMSManagerService extends Service {
 
 		SmsManager smsManager = SmsManager.getDefault();
 		// doesnt work. there is a bug on android core. Its sending sms twice
-		// smsManager.sendTextMessage(phoneNumber, null, message.trim(), sentPI,
-		// deliveredPI);
+		smsManager.sendTextMessage(phoneNumber, null, message.trim(), sentPI, deliveredPI);
 
-		SendSMSBugCorrection.send(phoneNumber, message.trim(), sentPI, deliveredPI, smsManager);
+		// SendSMSBugCorrection.send(phoneNumber, message.trim(), sentPI,
+		// deliveredPI, smsManager);
 	}
 
 	/**
